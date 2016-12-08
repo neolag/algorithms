@@ -1,0 +1,12 @@
+ - Capítulo 21 – set, union, find, ...
+ - Seção 22.4 – ordem topológica
+ - Seção 23.2 – (somente Kruskal)
+ - Capítulo 24 – caminhos mínimos de única origem
+ - Capítulo 25 – caminhos mínimos entre todos os pares
+
+ - Cap. 26: Fluxo
+ - Cap. 32: String Matching
+ - Cap. 33: Geometria Computacional.
+
+Opt:
+ - Cap. 31: Number theory

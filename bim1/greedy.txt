@@ -1,0 +1,38 @@
+16.1-3
+* Menor duração:
+1: 1 5
+2: 4 7
+3: 6 10
+
+ - Hipótese: 2
+ - Solução ótima: 1 e 3
+ - Ideia base: Uma atividade pode ter menor duração mas conflitar com outras atividades compatíveis entre si (troca de 2 por 1).
+
+* Atividade com menor número de conflitos:
+ 1: 1 5   conf.: 3 -> 3 -> P (poderia ser qualquer das outras 2-4)
+ 2: 3 8   conf.: 4 -> 3 -> X
+ 3: 4 7   conf.: 4 -> 3 -> X
+ 4: 4 9   conf.: 4 -> 3 -> X
+ 5: 6 11  conf.: 4 -> X
+ 6: 10 15 conf.: 2 -> P
+ 7: 14 20 conf.: 4 -> X
+ 8: 18 22 conf.: 4 -> 3 -> 3 -> P (poderia ser qualquer das outras 9-11)
+ 9: 18 24 conf.: 4 -> 3 -> 3 -> X
+10: 19 22 conf.: 4 -> 3 -> 3 -> X
+11: 21 25 conf.: 3 -> 3 -> 3 -> X
+
+ - Hipótese: 6, 1 e 8
+ - Solução ótima: 1, 5, 7 e 11
+ - Ideia base: Existem conflitos "irrelevantes", aqueles em que uma atividade conflita com várias outras que são na verdade incompatíveis entre si => só perderia-se uma atividade do conjunto ótimo caso aquela fosse escolhida.
+
+* Menor tempo inicial:
+1: 1 4
+2: 2 3
+3: 5 15
+4: 7 9
+5: 10 13
+
+ - Hipótese: 1 e 3
+ - Solução ótima: 2, 4 e 5
+ - Ideia base: Atividade pode começar antes e terminar muito depois, de forma que conflite com várias outras posteriores que ficariam disponíveis caso contrário.
+ 
