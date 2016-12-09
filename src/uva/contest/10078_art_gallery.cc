@@ -6,7 +6,7 @@
 #include <vector>
 #include <math.h>
 
-#include "geometry.cc"
+#include "../geometry.cc"
 
 using namespace geometry;
 
