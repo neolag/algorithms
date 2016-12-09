@@ -1,8 +1,11 @@
 // UVA Problem 374:
 // https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=310#include <iostream>
 
-#include <limits.h>
+#include <iostream>
+
 #include <vector>
+#include <cstdint>
+#include <climits>
 
 using std::vector;
 

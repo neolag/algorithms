@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <stdexcept>
+#include <vector>
 
 #define MAX_NODES 300
 
