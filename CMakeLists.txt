@@ -3,11 +3,13 @@ cmake_minimum_required(VERSION 3.6)
 set(CMAKE_CXX_COMPILER g++-4.8)
 set(CMAKE_CXX_STANDARD 11)
 
-project(ces23)
+project(algorithms)
+
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # Helpers only to make CLion do all its magic in those files :)
 add_library(util src/util/io.cc src/util/grouped_radix.cc)
-add_library(geometry src/uva/geometry.cc)
+add_library(struts src/struts/geometry.cc src/struts/groups.cc src/struts/heap.cc)
 
 add_executable(u10098 src/uva/contest/10098_fast_permutations.cc)
 add_executable(u10249 src/uva/contest/10249_grand_dinner.cc)

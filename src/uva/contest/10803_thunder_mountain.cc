@@ -9,7 +9,7 @@
 #include <vector>
 #include <limits>
 
-#include "../geometry.cc"
+#include "struts/geometry.cc"
 
 using City = geometry::Point;
 

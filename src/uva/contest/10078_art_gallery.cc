@@ -6,7 +6,7 @@
 #include <vector>
 #include <math.h>
 
-#include "../geometry.cc"
+#include "struts/geometry.cc"
 
 using namespace geometry;
 

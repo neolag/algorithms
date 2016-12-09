@@ -7,7 +7,7 @@
 #include <exception>
 #include <vector>
 
-#include "../geometry.cc"
+#include "struts/geometry.cc"
 
 using std::cin;
 using std::cout;
