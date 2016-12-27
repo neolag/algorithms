@@ -34,18 +34,18 @@ struct Link {
  * Classe para representar os nós propriamente ditos.
  */
 struct Node {
-    std::vector<Link*> links;
+    std::vector<Link*> edges;
 
     // Utilidade para a BFS, usada para recuperar
     // o caminho até o nó atual.
-    mutable Link* previousLink;
+    mutable Link* incomingEdge;
 
     /**
      * Obtem o nó anterior a partir do campo 'previousLink'.
      */
-    Node* previousNode() const {
-      if (!previousLink) return nullptr;
-      return this->otherNode(previousLink);
+    Node* previousInPath() const {
+      if (!incomingEdge) return nullptr;
+      return this->otherNode(incomingEdge);
     }
 
     /**
@@ -61,8 +61,8 @@ struct Node {
     /**
      * Utilidade para buscar um Link existente para um dado nó.
      */
-    Link* existingLinkTo(const Node *n) const {
-      for (Link* l : links) {
+    Link* existingEdgeTo(const Node *n) const {
+      for (Link* l : edges) {
         if (otherNode(l) == n) {
           return l;
         }
@@ -77,7 +77,7 @@ struct Node {
  */
 void clear_paths(Node *begin, Node *end) {
   for (Node* curr = begin; curr != end; curr++) {
-    curr->previousLink = nullptr;
+    curr->incomingEdge = nullptr;
   }
 }
 
@@ -104,11 +104,11 @@ bool bfs(const Node* source, const Node* target) {
   for (int i = 0; i < queue.size(); i++) {
     const Node* curr = queue[i];
     // Itera sobre todas as conexões do nó atual
-    for (Link* l : curr->links) {
+    for (Link* l : curr->edges) {
       const Node* other = curr->otherNode(l);
       // Desconsideramos conexões com capacityLeft == 0
-      if (l->capacityLeft > 0 && other->previousLink == nullptr && other != source) {
-        other->previousLink = l;
+      if (l->capacityLeft > 0 && other->incomingEdge == nullptr && other != source) {
+        other->incomingEdge = l;
         if (other == target) {
           return true;
         }
@@ -125,8 +125,8 @@ bool bfs(const Node* source, const Node* target) {
  */
 int max_path_flow(const Node *source, const Node *target) {
   int max_flow = INT_MAX;
-  for (const Node* curr = target; curr != source; curr = curr->previousNode()) {
-    max_flow = min(max_flow, curr->previousLink->capacityLeft);
+  for (const Node* curr = target; curr != source; curr = curr->previousInPath()) {
+    max_flow = min(max_flow, curr->incomingEdge->capacityLeft);
   }
   return max_flow;
 }
@@ -136,8 +136,8 @@ int max_path_flow(const Node *source, const Node *target) {
  * de source até target.
  */
 void update_path_capacity(Node* source, Node* target, int flow) {
-  for (Node* curr = target; curr != source; curr = curr->previousNode()) {
-    curr->previousLink->capacityLeft -= flow;
+  for (Node* curr = target; curr != source; curr = curr->previousInPath()) {
+    curr->incomingEdge->capacityLeft -= flow;
   }
 }
 
@@ -149,7 +149,7 @@ int main() {
   for (int networkId = 1; cin >> numNodes && numNodes > 0; networkId++) {
     // Reinicialização das estruturas
     for (int i = 0 ; i < numNodes; i++) {
-      nodes[i].links.clear();
+      nodes[i].edges.clear();
     }
     cin >> sourceIdx >> targetIdx >> numLinksToRead;
 
@@ -165,14 +165,14 @@ int main() {
       // Faz-se ainda um colapso entre múltiplas conexões entre
       // os mesmos nós, considerando que seja apenas uma conexão
       // com a soma das capacidades de todas que foram definidas.
-      Link* link = nodes[n1 - 1].existingLinkTo(&nodes[n2 - 1]);
+      Link* link = nodes[n1 - 1].existingEdgeTo(&nodes[n2 - 1]);
       if (link) {
         link->capacityLeft += cap;
       } else {
         link = &links_buffer[linkCount++];
         link->init(&nodes[n1 - 1], &nodes[n2 - 1], cap);
-        nodes[n1 - 1].links.push_back(link);
-        nodes[n2 - 1].links.push_back(link);
+        nodes[n1 - 1].edges.push_back(link);
+        nodes[n2 - 1].edges.push_back(link);
       }
     }
 
